@@ -11,7 +11,8 @@ import java.io.RandomAccessFile
 
 class EmptyFileCreator(
     private val diskStat: IDiskStat,
-    private val useSparseFile: () -> Boolean
+    private val useSparseFile: () -> Boolean,
+    private val useDynamicFileCreation: () -> Boolean,
 ) {
     private fun canWeUseSparse(file: File): Boolean {
         return useSparseFile() && SparseFile.canWeCreateSparseFile(file)
@@ -29,7 +30,6 @@ class EmptyFileCreator(
             "length must be -1 , or positive value but we got ${length}"
         }
         withContext(Dispatchers.IO) {
-
             val canWeUseSparse = canWeUseSparse(file)
             onProgressUpdate(0)
             if (length == -1L) {
@@ -39,6 +39,20 @@ class EmptyFileCreator(
                 onProgressUpdate(100)
                 return@withContext
             }
+
+            if (useDynamicFileCreation()) {
+                if (!file.exists()) {
+                    file.createNewFile()
+                }
+                if (file.length() > length) {
+                    RandomAccessFile(file, "rw").use {
+                        it.setLength(length)
+                    }
+                }
+                onProgressUpdate(100)
+                return@withContext
+            }
+
             val remainingSpace = diskStat.getRemainingSpace(file.parentFile)
             if (file.exists()) {
                 val currentLength = file.length()

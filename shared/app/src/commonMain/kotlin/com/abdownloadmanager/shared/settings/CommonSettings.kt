@@ -148,6 +148,22 @@ object CommonSettings {
         )
     }
 
+
+    fun dynamicFileCreation(appRepository: BaseAppRepository): BooleanConfigurable {
+        return BooleanConfigurable(
+            title = "Dynamic File Creation".asStringSource(),
+            description = "Create files while downloading instead of preallocating the entire size first.".asStringSource(),
+            backedBy = appRepository.dynamicFileCreation,
+            describe = {
+                if (it) {
+                    Res.string.enabled.asStringSource()
+                } else {
+                    Res.string.disabled.asStringSource()
+                }
+            },
+        )
+    }
+
     fun useSparseFileAllocation(appRepository: BaseAppRepository): BooleanConfigurable {
         return BooleanConfigurable(
             title = Res.string.settings_use_sparse_file_allocation.asStringSource(),

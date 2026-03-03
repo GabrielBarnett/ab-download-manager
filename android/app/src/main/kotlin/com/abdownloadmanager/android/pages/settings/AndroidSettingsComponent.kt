@@ -114,6 +114,7 @@ class AndroidSettingsComponent(
                     CommonSettings.appendExtensionToIncompleteDownloads(appRepository),
                     CommonSettings.deletePartialFileOnDownloadCancellation(appSettings),
                     CommonSettings.useSparseFileAllocation(appRepository),
+                    CommonSettings.dynamicFileCreation(appRepository),
                 )
             ),
             ConfigurableGroup(

@@ -40,6 +40,7 @@ open class BaseAppRepository(
     val useServerLastModifiedTime = appSettings.useServerLastModifiedTime
     val appendExtensionToIncompleteDownloads = appSettings.appendExtensionToIncompleteDownloads
     val useSparseFileAllocation = appSettings.useSparseFileAllocation
+    val dynamicFileCreation = appSettings.dynamicFileCreation
     val maxDownloadRetryCount = appSettings.maxDownloadRetryCount
     val useAverageSpeed = appSettings.useAverageSpeed
     val saveLocation = appSettings.defaultDownloadFolder
@@ -77,6 +78,7 @@ open class BaseAppRepository(
         downloadSettings.useServerLastModifiedTime = useServerLastModifiedTime.value
         downloadSettings.appendExtensionToIncompleteDownloads = appendExtensionToIncompleteDownloads.value
         downloadSettings.useSparseFileAllocation = useSparseFileAllocation.value
+        downloadSettings.dynamicFileCreation = dynamicFileCreation.value
         downloadSettings.maxDownloadRetryCount = maxDownloadRetryCount.value
         downloadSettings.globalSpeedLimit = speedLimiter.value
     }
@@ -139,6 +141,12 @@ open class BaseAppRepository(
             .debounce(500)
             .onEach {
                 downloadSettings.useSparseFileAllocation = it
+                downloadManager.reloadSetting()
+            }.launchIn(scope)
+        dynamicFileCreation
+            .debounce(500)
+            .onEach {
+                downloadSettings.dynamicFileCreation = it
                 downloadManager.reloadSetting()
             }.launchIn(scope)
         maxDownloadRetryCount

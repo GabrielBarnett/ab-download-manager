@@ -38,6 +38,7 @@ data class AppSettingsModel(
     override val useServerLastModifiedTime: Boolean = false,
     override val appendExtensionToIncompleteDownloads: Boolean = false,
     override val useSparseFileAllocation: Boolean = true,
+    override val dynamicFileCreation: Boolean = false,
     override val useAverageSpeed: Boolean = true,
     override val showDownloadProgressDialog: Boolean = true,
     override val showDownloadCompletionDialog: Boolean = true,
@@ -82,6 +83,7 @@ data class AppSettingsModel(
             val useServerLastModifiedTime = booleanKeyOf("useServerLastModifiedTime")
             val appendExtensionToIncompleteDownloads = booleanKeyOf("appendExtensionToIncompleteDownloads")
             val useSparseFileAllocation = booleanKeyOf("useSparseFileAllocation")
+            val dynamicFileCreation = booleanKeyOf("dynamicFileCreation")
             val useAverageSpeed = booleanKeyOf("useAverageSpeed")
             val showDownloadProgressDialog = booleanKeyOf("showDownloadProgressDialog")
             val showDownloadCompletionDialog = booleanKeyOf("showDownloadCompletionDialog")
@@ -125,6 +127,7 @@ data class AppSettingsModel(
                 appendExtensionToIncompleteDownloads = source.get(Keys.appendExtensionToIncompleteDownloads)
                     ?: default.appendExtensionToIncompleteDownloads,
                 useSparseFileAllocation = source.get(Keys.useSparseFileAllocation) ?: default.useSparseFileAllocation,
+                dynamicFileCreation = source.get(Keys.dynamicFileCreation) ?: default.dynamicFileCreation,
                 useAverageSpeed = source.get(Keys.useAverageSpeed) ?: default.useAverageSpeed,
                 showDownloadProgressDialog = source.get(Keys.showDownloadProgressDialog)
                     ?: default.showDownloadProgressDialog,
@@ -168,6 +171,7 @@ data class AppSettingsModel(
                 put(Keys.useServerLastModifiedTime, focus.useServerLastModifiedTime)
                 put(Keys.appendExtensionToIncompleteDownloads, focus.appendExtensionToIncompleteDownloads)
                 put(Keys.useSparseFileAllocation, focus.useSparseFileAllocation)
+                put(Keys.dynamicFileCreation, focus.dynamicFileCreation)
                 put(Keys.useAverageSpeed, focus.useAverageSpeed)
                 put(Keys.showDownloadProgressDialog, focus.showDownloadProgressDialog)
                 put(Keys.showDownloadCompletionDialog, focus.showDownloadCompletionDialog)
@@ -241,6 +245,7 @@ class AppSettingsStorage(
     override val useServerLastModifiedTime = from(AppSettingsModel.useServerLastModifiedTime)
     override val appendExtensionToIncompleteDownloads = from(AppSettingsModel.appendExtensionToIncompleteDownloads)
     override val useSparseFileAllocation = from(AppSettingsModel.useSparseFileAllocation)
+    override val dynamicFileCreation = from(AppSettingsModel.dynamicFileCreation)
     override val useAverageSpeed = from(AppSettingsModel.useAverageSpeed)
     override val maxDownloadRetryCount = from(AppSettingsModel.maxDownloadRetryCount)
     override val showDownloadProgressDialog = from(AppSettingsModel.showDownloadProgressDialog)
