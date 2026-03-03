@@ -20,6 +20,7 @@ interface IAppSettingsModel {
     val useServerLastModifiedTime: Boolean
     val appendExtensionToIncompleteDownloads: Boolean
     val useSparseFileAllocation: Boolean
+    val dynamicFileCreation: Boolean
     val useAverageSpeed: Boolean
     val showDownloadProgressDialog: Boolean
     val showDownloadCompletionDialog: Boolean
@@ -56,6 +57,7 @@ interface BaseAppSettingsStorage :
     val useServerLastModifiedTime: MutableStateFlow<Boolean>
     val appendExtensionToIncompleteDownloads: MutableStateFlow<Boolean>
     val useSparseFileAllocation: MutableStateFlow<Boolean>
+    val dynamicFileCreation: MutableStateFlow<Boolean>
     val useAverageSpeed: MutableStateFlow<Boolean>
     val maxDownloadRetryCount: MutableStateFlow<Int>
     val showDownloadProgressDialog: MutableStateFlow<Boolean>

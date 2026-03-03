@@ -195,7 +195,8 @@ val downloaderModule = module {
         val downloadSettings: DownloadSettings = get()
         EmptyFileCreator(
             diskStat = get(),
-            useSparseFile = { downloadSettings.useSparseFileAllocation }
+            useSparseFile = { downloadSettings.useSparseFileAllocation },
+            useDynamicFileCreation = { downloadSettings.dynamicFileCreation },
         )
     }
     single {

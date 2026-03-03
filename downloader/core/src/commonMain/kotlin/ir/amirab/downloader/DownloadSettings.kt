@@ -7,6 +7,7 @@ data class DownloadSettings(
     var useServerLastModifiedTime: Boolean = false,
     var globalSpeedLimit: Long = 0,//unlimited
     var useSparseFileAllocation: Boolean = true,
+    var dynamicFileCreation: Boolean = false,
     val minPartSize: Long = 2048,//2kB
     var maxDownloadRetryCount: Int = 0,
     // WARNING: this is used in boot so make sure to update it before booting
